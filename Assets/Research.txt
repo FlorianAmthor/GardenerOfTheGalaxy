@@ -1,0 +1,15 @@
+Shader: https://www.reddit.com/r/Townscaper/comments/pf0dek/townscaper_texture_mapping/?utm_source=share&utm_medium=web2x&context=3
+
+Twitter Blender: https://twitter.com/SouthArrowMaps/status/1434834474655576073/photo/1
+
+https://www.reddit.com/r/Townscaper/comments/pd5wm6/town_in_the_morning_mist/hap5ssn/
+
+Project in WebGL with comments: https://reindernijhoff.net/2021/11/townscapers-rendering-style-in-webgl/
+
+Test town example compare: GSB0hApS5kbD8TQdpnczng6SP5PB-E8SwJtD
+
+
+Ambient occlusion: https://twitter.com/osksta/status/1168571866405097472
+
+
+Doors: https://twitter.com/OskSta/status/1228243662779359232
