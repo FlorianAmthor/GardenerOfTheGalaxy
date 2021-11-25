@@ -13,7 +13,7 @@ Shader "Custom/DepthStencilMask"
         // Don't draw in the RGBA channels; just the depth buffer
         ColorMask 0
 
-        ZWrite Off
+        ZWrite off
         Cull off
 
         ZTest less
@@ -27,6 +27,7 @@ Shader "Custom/DepthStencilMask"
             
          Pass
         {
+            /*
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -79,7 +80,7 @@ Shader "Custom/DepthStencilMask"
                 return color;
             }
             ENDHLSL
-            
+            */
         }
     }
 }

@@ -1,4 +1,4 @@
-Shader "Custom/DrawWindowsBackfaces"
+Shader "Custom/DrawWindowsFront"
 {
     // The _BaseMap variable is visible in the Material's Inspector, as a field
     // called Base Map.
@@ -7,22 +7,23 @@ Shader "Custom/DrawWindowsBackfaces"
         _BaseMap("Base Map", 2D) = "white"
     }
 
+       
         SubShader
     {
-        // ZWrite on
-       
+
+   
         Stencil
              {
                  Ref 1
-                 Comp equal
-                 Pass Invert
+                 Comp NotEqual
+                 Pass Zero
              }
 
         Pass
         {
-            Tags { "RenderType" = "Transparent" "RenderPipeline" = "UniversalRenderPipeline" }
+            Tags { "RenderType" = "Transparent+1" "RenderPipeline" = "UniversalRenderPipeline" }
             Cull back
-            ZTest greater
+            ZTest less
 
             HLSLPROGRAM
             #pragma vertex vert
