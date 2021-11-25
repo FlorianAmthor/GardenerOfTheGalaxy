@@ -10,30 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
-  m_Name: RenderDoorsAndWindows
+  m_Name: NewRenderObjects
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    passTag: RenderDoorsAndWindows
-    Event: 450
+    passTag: NewRenderObjects
+    Event: 500
     filterSettings:
-      RenderQueueType: 1
+      RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
         m_Bits: 64
       PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: abdad4cd943d97a4a8d41ae3b580eb30, type: 2}
-    overrideMaterialPassIndex: 0
+    overrideMaterial: {fileID: 2100000, guid: b5287172f62183c4795de5ff26b8d9d7, type: 2}
+    overrideMaterialPassIndex: 1
     overrideDepthState: 1
     depthCompareFunction: 7
-    enableWrite: 1
+    enableWrite: 0
     stencilSettings:
       overrideStencilState: 1
       stencilReference: 1
       stencilCompareFunction: 6
-      passOperation: 2
-      failOperation: 0
-      zFailOperation: 0
+      passOperation: 5
+      failOperation: 5
+      zFailOperation: 1
     cameraSettings:
       overrideCamera: 0
       restoreCamera: 1
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: WriteStencil
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: WriteStencil
     Event: 250
@@ -64,7 +64,7 @@ MonoBehaviour:
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
     overrideDepthState: 1
-    depthCompareFunction: 8
+    depthCompareFunction: 0
     enableWrite: 0
     stencilSettings:
       overrideStencilState: 1
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
-  m_Name: UniversalRenderPipelineAssetOutline_Renderer
+  m_Name: UniversalRenderPipelineAssetOutline_Renderer_CloseButOtusideMaterialsAreDrawn
   m_EditorClassIdentifier: 
   m_RendererFeatures:
   - {fileID: 206728568443105500}
@@ -111,10 +111,10 @@ MonoBehaviour:
     materialErrorPS: {fileID: 4800000, guid: 5fd9a8feb75a4b5894c241777f519d4e, type: 3}
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_TransparentLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 119
   m_DefaultStencilState:
     overrideStencilState: 0
     stencilReference: 1
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
   m_Name: Invert
   m_EditorClassIdentifier: 
-  m_Active: 0
+  m_Active: 1
   settings:
     passTag: Invert
     Event: 300
@@ -160,18 +160,18 @@ MonoBehaviour:
         serializedVersion: 2
         m_Bits: 64
       PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: 2298bfd7d5544b744a15d90804db0ed2, type: 2}
+    overrideMaterial: {fileID: 2100000, guid: d59f738e35840f94c93c3cf09b6d6a83, type: 2}
     overrideMaterialPassIndex: 0
-    overrideDepthState: 0
+    overrideDepthState: 1
     depthCompareFunction: 7
-    enableWrite: 0
+    enableWrite: 1
     stencilSettings:
       overrideStencilState: 1
       stencilReference: 1
       stencilCompareFunction: 8
-      passOperation: 2
-      failOperation: 2
-      zFailOperation: 2
+      passOperation: 5
+      failOperation: 5
+      zFailOperation: 0
     cameraSettings:
       overrideCamera: 0
       restoreCamera: 1
