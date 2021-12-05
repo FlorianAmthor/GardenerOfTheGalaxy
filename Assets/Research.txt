@@ -14,3 +14,5 @@ Ambient occlusion: https://twitter.com/osksta/status/1168571866405097472
 Doors: Part 1: https://twitter.com/OskSta/status/1175044378492121090
 
 Doors how do: https://twitter.com/OskSta/status/1228243662779359232
+
+Unity outline shader: https://www.youtube.com/watch?v=GGTTHOpUQDE
