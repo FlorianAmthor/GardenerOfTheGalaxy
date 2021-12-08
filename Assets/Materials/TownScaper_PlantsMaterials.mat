@@ -150,7 +150,7 @@ Material:
     - Vector1_b254d52fb7074980b84436b587f65662: 3
     - Vector1_dd0878415c7a43bc9030eca640c7be0e: 1
     - Vector1_ee2b824c337443098047d808ca19688f: 1
-    - Vector1_efe6d25b094b468e857da3a90e667ef3: 3
+    - Vector1_efe6d25b094b468e857da3a90e667ef3: 0
     - _AlphaClip: 0
     - _BASE_COLOR_WEIGHT: 1
     - _BUMP_MAP_STRENGTH: 0.3
