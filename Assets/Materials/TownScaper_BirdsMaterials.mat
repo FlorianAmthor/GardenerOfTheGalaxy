@@ -190,7 +190,7 @@ Material:
     - Color_096d9124f2094422a1d0049e8c739071: {r: 0, g: 0, b: 0, a: 0}
     - Color_0d3ad5f534a044a4a9c46adec5943545: {r: 1, g: 0, b: 0.8985181, a: 1}
     - Color_6c2cbba8cf7c4010b1a8eb1dba78e329: {r: 0, g: 0, b: 0, a: 0}
-    - Color_ae0ee7d65c54403e8c0a9fe9ebce9cf8: {r: 1, g: 0.32941177, b: 0, a: 1}
+    - Color_ae0ee7d65c54403e8c0a9fe9ebce9cf8: {r: 1, g: 1, b: 1, a: 1}
     - Color_e5963c6631bb444f8a1fe09685635121: {r: 0, g: 1, b: 0, a: 1}
     - Color_e7383b7ebe704117af1bab224c0e6445: {r: 1, g: 0.60730594, b: 0, a: 1}
     - Vector2_e8677bdde144473db47ad3f7a967260c: {r: 0, g: 0, b: 0, a: 0}
