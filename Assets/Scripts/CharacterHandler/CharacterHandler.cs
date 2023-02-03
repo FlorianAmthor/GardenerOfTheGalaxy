@@ -11,22 +11,36 @@ public class CharacterHandler : MonoBehaviour
     //Other components
     CharacterController characterController;
     Camera cameraCharacter;
+    private bool _jumpInput;
+
+    public Transform followTarget;
+
+    public float minXRotation;
+    public float maxXRotation;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
 
-        cameraCharacter = GetComponentInChildren<Camera>();
+        cameraCharacter = Camera.main; //GetComponentInChildren<Camera>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void Update()
+    {
+        if (!_jumpInput && Input.GetKey(KeyCode.Space))
+        {
+            _jumpInput = true;
+        }
+    }
+    
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Get input
         float forwardInput = Input.GetAxis("Vertical");
@@ -40,10 +54,11 @@ public class CharacterHandler : MonoBehaviour
 
         //Rotate the camera up and down
         rotationUpDown -= lookUpInput * 2;
-        rotationUpDown = Mathf.Clamp(rotationUpDown, -80, 80);
-        cameraCharacter.transform.localRotation = Quaternion.Euler(rotationUpDown, 0 , 0);
+        rotationUpDown = Mathf.Clamp(rotationUpDown, minXRotation, maxXRotation);
+        followTarget.localRotation = Quaternion.Euler(rotationUpDown, 0 , 0);
 
         //Move the character forward
-        characterController.SimpleMove(transform.right * sideInput + transform.forward * forwardInput * 2);
+        characterController.SimpleMove(transform.right * sideInput + transform.forward * (forwardInput * 2));
+
     }
 }
