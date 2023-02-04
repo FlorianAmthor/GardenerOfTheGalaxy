@@ -194,14 +194,13 @@ namespace StarterAssets
 
             if (_input.fire && !fireStartedThisFrame)
             {
-                Debug.Log("Holding down left mouse button!");
+                //Holding down left mouse button
             }
 
             if (!_input.fire && !_startedFiringTime.Equals(float.MinValue))
             {
                 _toolmanager.OnMouseReleased();
                 //stopped pressing fire button
-                Debug.Log($"Stopped pressing left mouse button. Hold time: {Time.time - _startedFiringTime}");
                 _startedFiringTime = float.MinValue;
             }
         }
