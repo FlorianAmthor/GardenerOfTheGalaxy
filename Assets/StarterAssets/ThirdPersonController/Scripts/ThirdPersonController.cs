@@ -120,6 +120,7 @@ namespace StarterAssets
         private bool _hasAnimator;
         private float _startedFiringTime;
         private CinemachineVirtualCamera _activeCamera;
+        private ToolManager _toolmanager;
 
         private bool IsCurrentDeviceMouse
         {
@@ -142,6 +143,7 @@ namespace StarterAssets
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
 
+            _toolmanager = GetComponent<ToolManager>();
             _startedFiringTime = float.MinValue;
             _activeCamera = _followCamera.gameObject.activeInHierarchy ? _followCamera : _fpsCamera;
         }
@@ -167,8 +169,7 @@ namespace StarterAssets
         }
 
         bool fireStartedThisFrame = false;
-        private Interactable _currentInteractable;
-        
+
         private void Update()
         {
             fireStartedThisFrame = false;
@@ -179,17 +180,9 @@ namespace StarterAssets
             Move();
             if (_input.fire && _startedFiringTime.Equals(float.MinValue))
             {
-                //started pressing fire button
                 fireStartedThisFrame = true;
                 _startedFiringTime = Time.time;
-                Debug.Log("Started pressing left mouse button");
-                var layerMask = LayerMask.GetMask("Interactable");
-                Debug.Log(layerMask);
-                if (Physics.Raycast(CinemachineCameraTarget.transform.position, transform.forward, out var hitInfo, 2, layerMask))
-                {
-                    _currentInteractable = hitInfo.collider.GetComponent<Interactable>();
-                    _currentInteractable.StartInteracting();
-                }
+                _toolmanager.OnMouseDown();
             }
 
             if (_input.fire && !fireStartedThisFrame)
@@ -199,8 +192,7 @@ namespace StarterAssets
 
             if (!_input.fire && !_startedFiringTime.Equals(float.MinValue))
             {
-                if(_currentInteractable)
-                    _currentInteractable.CancelInteracting();
+                _toolmanager.OnMouseUp();
                 //stopped pressing fire button
                 Debug.Log($"Stopped pressing left mouse button. Hold time: {Time.time - _startedFiringTime}");
                 _startedFiringTime = float.MinValue;
