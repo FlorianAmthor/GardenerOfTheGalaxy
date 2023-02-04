@@ -20,6 +20,7 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 		public bool switchCamera;
+		public bool fire;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
@@ -49,6 +50,11 @@ namespace StarterAssets
 		{
 			SwitchCameraInput();
 		}
+
+		public void OnFire(InputValue value)
+		{
+			FireInput(value.isPressed);
+		}
 #endif
 
 
@@ -75,6 +81,11 @@ namespace StarterAssets
 		public void SwitchCameraInput()
 		{
 			switchCamera = true;
+		}
+
+		public void FireInput(bool isPressed)
+		{
+			fire = isPressed;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)

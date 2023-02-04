@@ -116,6 +116,7 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
+        private float _startedFiringTime;
 
         private bool IsCurrentDeviceMouse
         {
@@ -137,6 +138,8 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            _startedFiringTime = float.MinValue;
         }
 
         private void Start()
@@ -166,6 +169,19 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            if (_input.fire && _startedFiringTime.Equals(float.MinValue))
+            {
+                //started pressing fire button
+                _startedFiringTime = Time.time;
+                Debug.Log("Started pressing left mouse button");
+            }
+
+            if (!_input.fire && !_startedFiringTime.Equals(float.MinValue))
+            {
+                //stopped pressing fire button
+                Debug.Log($"Stopped pressing left mouse button. Hold time: {Time.time - _startedFiringTime}");
+                _startedFiringTime = float.MinValue;
+            }
         }
 
         private void LateUpdate()
@@ -391,6 +407,7 @@ namespace StarterAssets
 
         private void OnFootstep(AnimationEvent animationEvent)
         {
+            return;
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 if (FootstepAudioClips.Length > 0)
