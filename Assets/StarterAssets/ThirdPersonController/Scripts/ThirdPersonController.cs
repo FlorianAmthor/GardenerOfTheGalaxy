@@ -1,4 +1,6 @@
 ﻿using Cinemachine;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.PackageManager;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -117,6 +119,7 @@ namespace StarterAssets
 
         private bool _hasAnimator;
         private float _startedFiringTime;
+        private CinemachineVirtualCamera _activeCamera;
 
         private bool IsCurrentDeviceMouse
         {
@@ -140,6 +143,7 @@ namespace StarterAssets
             }
 
             _startedFiringTime = float.MinValue;
+            _activeCamera = _followCamera.gameObject.activeInHierarchy ? _followCamera : _fpsCamera;
         }
 
         private void Start()
@@ -162,8 +166,12 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
         }
 
+        bool fireStartedThisFrame = false;
+        private Interactable _currentInteractable;
+        
         private void Update()
         {
+            fireStartedThisFrame = false;
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
@@ -172,12 +180,27 @@ namespace StarterAssets
             if (_input.fire && _startedFiringTime.Equals(float.MinValue))
             {
                 //started pressing fire button
+                fireStartedThisFrame = true;
                 _startedFiringTime = Time.time;
                 Debug.Log("Started pressing left mouse button");
+                var layerMask = LayerMask.GetMask("Interactable");
+                Debug.Log(layerMask);
+                if (Physics.Raycast(CinemachineCameraTarget.transform.position, transform.forward, out var hitInfo, 2, layerMask))
+                {
+                    _currentInteractable = hitInfo.collider.GetComponent<Interactable>();
+                    _currentInteractable.StartInteracting();
+                }
+            }
+
+            if (_input.fire && fireStartedThisFrame)
+            {
+                Debug.Log("Holding down left mouse button!");
             }
 
             if (!_input.fire && !_startedFiringTime.Equals(float.MinValue))
             {
+                if(_currentInteractable)
+                    _currentInteractable.CancelInteracting();
                 //stopped pressing fire button
                 Debug.Log($"Stopped pressing left mouse button. Hold time: {Time.time - _startedFiringTime}");
                 _startedFiringTime = float.MinValue;
@@ -237,6 +260,11 @@ namespace StarterAssets
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
+            if (_activeCamera.Equals(_fpsCamera))
+            {
+                transform.rotation = Quaternion.Euler(0,
+                    _cinemachineTargetYaw, 0.0f);
+            }
         }
 
         public void SwapCameras()
@@ -244,6 +272,7 @@ namespace StarterAssets
             bool followCameraActive = _followCamera.gameObject.activeInHierarchy;
             _followCamera.gameObject.SetActive(!followCameraActive);
             _fpsCamera.gameObject.SetActive(followCameraActive);
+            _activeCamera = _followCamera.gameObject.activeInHierarchy ? _followCamera : _fpsCamera;
             _input.switchCamera = false;
         }
 
@@ -297,7 +326,8 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                if (_activeCamera.Equals(_followCamera))
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
 
