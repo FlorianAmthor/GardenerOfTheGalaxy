@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cinemachine;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -74,6 +75,11 @@ namespace StarterAssets
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
+
+        [SerializeField]
+        private CinemachineVirtualCamera _followCamera;
+        [SerializeField]
+        private CinemachineVirtualCamera _fpsCamera;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -163,6 +169,10 @@ namespace StarterAssets
 
         private void LateUpdate()
         {
+            if (_input.switchCamera)
+            {
+                SwapCameras();
+            }
             CameraRotation();
         }
 
@@ -209,6 +219,14 @@ namespace StarterAssets
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
+        }
+
+        public void SwapCameras()
+        {
+            bool followCameraActive = _followCamera.gameObject.activeInHierarchy;
+            _followCamera.gameObject.SetActive(!followCameraActive);
+            _fpsCamera.gameObject.SetActive(followCameraActive);
+            _input.switchCamera = false;
         }
 
         private void Move()

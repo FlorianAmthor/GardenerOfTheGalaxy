@@ -10,7 +10,6 @@ namespace StarterAssets
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
-		public float scroll;
 		public bool jump;
 		public bool sprint;
 
@@ -20,6 +19,7 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+		public bool switchCamera;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
@@ -45,9 +45,9 @@ namespace StarterAssets
 			SprintInput(value.isPressed);
 		}
 
-		public void OnZoom(InputValue value)
+		public void OnSwitchCamera(InputValue value)
 		{
-			
+			SwitchCameraInput();
 		}
 #endif
 
@@ -72,11 +72,11 @@ namespace StarterAssets
 			sprint = newSprintState;
 		}
 
-		public void ZoomInput(float scrollValue)
+		public void SwitchCameraInput()
 		{
-			scroll = scrollValue;
+			switchCamera = true;
 		}
-		
+
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
