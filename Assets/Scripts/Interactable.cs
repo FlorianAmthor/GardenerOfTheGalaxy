@@ -7,7 +7,6 @@ public class Interactable : MonoBehaviour
     public UnityEvent OnInteractStarted;
     public UnityEvent OnInteractFinished;
     public UnityEvent OnInteractCancelled;
-
     
     public float timeToFinishInteraction;
     private float _interactionStarted = float.MinValue;

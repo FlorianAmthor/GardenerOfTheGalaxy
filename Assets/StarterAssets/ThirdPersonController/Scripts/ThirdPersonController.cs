@@ -192,7 +192,7 @@ namespace StarterAssets
                 }
             }
 
-            if (_input.fire && fireStartedThisFrame)
+            if (_input.fire && !fireStartedThisFrame)
             {
                 Debug.Log("Holding down left mouse button!");
             }
