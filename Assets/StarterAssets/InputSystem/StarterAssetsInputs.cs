@@ -21,6 +21,8 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 		public bool switchCamera;
 		public bool fire;
+		public bool switchTool;
+		public ToolManager.Tool toolToSwitchTo;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
@@ -55,6 +57,21 @@ namespace StarterAssets
 		{
 			FireInput(value.isPressed);
 		}
+		
+		public void OnEquipTool1(InputValue value)
+		{
+			EquipTool(ToolManager.Tool.Level1);
+		}
+		
+		public void OnEquipTool2(InputValue value)
+		{
+			EquipTool(ToolManager.Tool.Level2);
+		}
+		
+		public void OnEquipTool3(InputValue value)
+		{
+			EquipTool(ToolManager.Tool.Level3);
+		}
 #endif
 
 
@@ -88,6 +105,12 @@ namespace StarterAssets
 			fire = isPressed;
 		}
 
+		private void EquipTool(ToolManager.Tool tool)
+		{
+			switchTool = true;
+			toolToSwitchTo = tool;
+		}
+		
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);

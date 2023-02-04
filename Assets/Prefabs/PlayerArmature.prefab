@@ -1915,7 +1915,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6646117024890772843}
-  m_LocalRotation: {x: -0, y: 0.9408034, z: -0, w: 0.33895278}
+  m_LocalRotation: {x: 0, y: 0.94080395, z: 0, w: 0.3389515}
   m_LocalPosition: {x: -11.343, y: 1.064, z: 43.975}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2050,6 +2050,8 @@ MonoBehaviour:
   cursorInputForLook: 1
   switchCamera: 0
   fire: 0
+  switchTool: 0
+  toolToSwitchTo: 0
 --- !u!114 &6646117024890772839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2161,9 +2163,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTool: 0
-  _gardeningTool1: {fileID: 11400000, guid: 7911cbce2fe6cc946b8db671a9c47d89, type: 2}
-  _gardeningTool2: {fileID: 0}
-  _gardeningTool3: {fileID: 0}
+  tool1Unlocked: 0
+  tool2Unlocked: 0
+  tool3Unlocked: 0
+  _gardeningToolNone: {fileID: 11400000, guid: 952bd445e481a0e42990f8d7bc1ff1f5, type: 2}
+  _gardeningTool1: {fileID: 11400000, guid: 952bd445e481a0e42990f8d7bc1ff1f5, type: 2}
+  _gardeningTool2: {fileID: 11400000, guid: f2bad7b263be97f40a9f4ca760721aab, type: 2}
+  _gardeningTool3: {fileID: 11400000, guid: be33e2a7c25df1c47948c621938029e4, type: 2}
 --- !u!1 &6717101544588134328
 GameObject:
   m_ObjectHideFlags: 0

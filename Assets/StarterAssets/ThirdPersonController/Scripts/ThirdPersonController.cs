@@ -178,6 +178,13 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+
+            if (_input.switchTool)
+            {
+                _toolmanager.SwitchTool(_input.toolToSwitchTo);
+                _input.switchTool = false;
+            }
+            
             if (_input.fire && _startedFiringTime.Equals(float.MinValue))
             {
                 fireStartedThisFrame = true;

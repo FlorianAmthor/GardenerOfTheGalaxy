@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour
 {
+    public ToolManager.Tool requiredToolType;
+    
     public UnityEvent OnInteractStarted;
     public UnityEvent OnInteractFinished;
     public UnityEvent OnInteractCancelled;
@@ -21,8 +23,10 @@ public class Interactable : MonoBehaviour
         print(_interactionImage);
     }
 
-    public void StartInteracting()
+    public void StartInteracting(ToolManager.Tool toolType)
     {
+        if (!requiredToolType.Equals(toolType))
+            return;
         Debug.Log($"Started Interaction with {name}");
         _interactionStarted = Time.time;
         wasCancelled = false;

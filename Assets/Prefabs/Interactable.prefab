@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5382454523155696326}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8688, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5382454523625793630}
@@ -44,9 +44,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5382454523155696326}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53f895a5fe795134f9c52704b5bbd9ea, type: 3}
+  m_Script: {fileID: 11500000, guid: e20baf4e560c1734ba6c82c40615d861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredToolType: 0
   OnInteractStarted:
     m_PersistentCalls:
       m_Calls:
@@ -92,9 +93,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  timeToFinishInteraction: 1
+  timeToFinishInteraction: 0
   _interactionImage: {fileID: 5382454524612737442}
-  rootLevel: 0
 --- !u!65 &615046361
 BoxCollider:
   m_ObjectHideFlags: 0
