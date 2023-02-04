@@ -1,6 +1,7 @@
 using System;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ToolManager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private GardeningTool _gardeningTool2;
     [SerializeField] private GardeningTool _gardeningTool3;
 
+    [SerializeField] private Image _tool1Image;
+    [SerializeField] private Image _tool2Image;
+    [SerializeField] private Image _tool3Image;
+    
     private GardeningTool _currentGardeningTool;
 
     public enum Tool
@@ -27,7 +32,15 @@ public class ToolManager : MonoBehaviour
     private void Awake()
     {
         SwitchTool(Tool.None);
+        UpdateToolUIImages();
         _currentGardeningTool.SetOwner(GetComponent<ThirdPersonController>());
+    }
+
+    private void UpdateToolUIImages()
+    {
+        _tool1Image.color = new Color(1, 1, 1, tool1Unlocked ? 1 : 0.33f);
+        _tool2Image.color = new Color(1, 1, 1, tool2Unlocked ? 1 : 0.33f);
+        _tool3Image.color = new Color(1, 1, 1, tool3Unlocked ? 1 : 0.33f);
     }
 
     public void OnMousePressed()
@@ -84,15 +97,18 @@ public class ToolManager : MonoBehaviour
     public void UnlockTool1(bool value)
     {
         tool1Unlocked = value;
+        UpdateToolUIImages();
     }
 
     public void UnlockTool2(bool value)
     {
         tool2Unlocked = value;
+        UpdateToolUIImages();
     }
 
     public void UnlockTool3(bool value)
     {
         tool3Unlocked = value;
+        UpdateToolUIImages();
     }
 }
