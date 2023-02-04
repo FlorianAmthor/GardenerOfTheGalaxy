@@ -10,6 +10,7 @@ namespace StarterAssets
 		[Header("Character Input Values")]
 		public Vector2 move;
 		public Vector2 look;
+		public float scroll;
 		public bool jump;
 		public bool sprint;
 
@@ -43,6 +44,11 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		public void OnZoom(InputValue value)
+		{
+			
+		}
 #endif
 
 
@@ -66,6 +72,11 @@ namespace StarterAssets
 			sprint = newSprintState;
 		}
 
+		public void ZoomInput(float scrollValue)
+		{
+			scroll = scrollValue;
+		}
+		
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
