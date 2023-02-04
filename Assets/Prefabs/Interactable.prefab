@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 5382454523625793626}
   - component: {fileID: 5382454523625793627}
   m_Layer: 0
-  m_Name: MeshAndCollider
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

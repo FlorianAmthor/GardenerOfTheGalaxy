@@ -11,6 +11,7 @@ public class GardeningTool : ScriptableObject
 
     public void MousePressed()
     {
+        _currentInteractable = null;
         var layerMask = LayerMask.GetMask("Interactable");
         if (Physics.Raycast(_owner.CinemachineCameraTarget.transform.position, _owner.transform.forward, out var hitInfo, toolRange, layerMask))
         {
