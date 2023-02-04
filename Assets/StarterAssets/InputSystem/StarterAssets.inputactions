@@ -42,13 +42,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Zoom",
-                    "type": "Value",
-                    "id": "88ca4af6-e7c4-4247-8e63-1757f7d57414",
+                    "name": "SwitchCamera",
+                    "type": "Button",
+                    "id": "59145351-9870-489b-8052-34f27736ed5a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "PassThrough",
+                    "id": "0df1bade-2204-4374-b3d2-2d85e0642941",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -229,37 +238,26 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "b601cba6-66c2-421d-bd97-752949b5c3a9",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "f653cb72-1c4f-4b85-807a-f2a05eecdc42",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zoom",
-                    "isComposite": true,
+                    "action": "SwitchCamera",
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "3bf0d7ce-db83-4180-a0c7-c6ac74fbcf10",
-                    "path": "<Mouse>/scroll/y",
+                    "name": "",
+                    "id": "abaecc6b-c72c-48f6-891c-3b0e0ded7223",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zoom",
+                    "action": "Fire",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "8ad87893-a7b2-4495-a9d9-beabbad4dde8",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Zoom",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 }
             ]
         }

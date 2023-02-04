@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using Cinemachine;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.PackageManager;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -75,6 +78,12 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [SerializeField]
+        private CinemachineVirtualCamera _followCamera;
+
+        [SerializeField]
+        private CinemachineVirtualCamera _fpsCamera;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -109,6 +118,8 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
+        private float _startedFiringTime;
+        private CinemachineVirtualCamera _activeCamera;
 
         private bool IsCurrentDeviceMouse
         {
@@ -130,12 +141,15 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            _startedFiringTime = float.MinValue;
+            _activeCamera = _followCamera.gameObject.activeInHierarchy ? _followCamera : _fpsCamera;
         }
 
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -152,17 +166,54 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
         }
 
+        bool fireStartedThisFrame = false;
+        private Interactable _currentInteractable;
+        
         private void Update()
         {
+            fireStartedThisFrame = false;
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
             GroundedCheck();
             Move();
+            if (_input.fire && _startedFiringTime.Equals(float.MinValue))
+            {
+                //started pressing fire button
+                fireStartedThisFrame = true;
+                _startedFiringTime = Time.time;
+                Debug.Log("Started pressing left mouse button");
+                var layerMask = LayerMask.GetMask("Interactable");
+                Debug.Log(layerMask);
+                if (Physics.Raycast(CinemachineCameraTarget.transform.position, transform.forward, out var hitInfo, 2, layerMask))
+                {
+                    _currentInteractable = hitInfo.collider.GetComponent<Interactable>();
+                    _currentInteractable.StartInteracting();
+                }
+            }
+
+            if (_input.fire && !fireStartedThisFrame)
+            {
+                Debug.Log("Holding down left mouse button!");
+            }
+
+            if (!_input.fire && !_startedFiringTime.Equals(float.MinValue))
+            {
+                if(_currentInteractable)
+                    _currentInteractable.CancelInteracting();
+                //stopped pressing fire button
+                Debug.Log($"Stopped pressing left mouse button. Hold time: {Time.time - _startedFiringTime}");
+                _startedFiringTime = float.MinValue;
+            }
         }
 
         private void LateUpdate()
         {
+            if (_input.switchCamera)
+            {
+                SwapCameras();
+            }
+
             CameraRotation();
         }
 
@@ -209,6 +260,20 @@ namespace StarterAssets
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
+            if (_activeCamera.Equals(_fpsCamera))
+            {
+                transform.rotation = Quaternion.Euler(0,
+                    _cinemachineTargetYaw, 0.0f);
+            }
+        }
+
+        public void SwapCameras()
+        {
+            bool followCameraActive = _followCamera.gameObject.activeInHierarchy;
+            _followCamera.gameObject.SetActive(!followCameraActive);
+            _fpsCamera.gameObject.SetActive(followCameraActive);
+            _activeCamera = _followCamera.gameObject.activeInHierarchy ? _followCamera : _fpsCamera;
+            _input.switchCamera = false;
         }
 
         private void Move()
@@ -261,7 +326,8 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                if (_activeCamera.Equals(_followCamera))
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
 
@@ -371,6 +437,7 @@ namespace StarterAssets
 
         private void OnFootstep(AnimationEvent animationEvent)
         {
+            return;
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 if (FootstepAudioClips.Length > 0)
