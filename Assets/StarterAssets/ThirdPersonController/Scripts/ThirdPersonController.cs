@@ -78,6 +78,7 @@ namespace StarterAssets
 
         [SerializeField]
         private CinemachineVirtualCamera _followCamera;
+
         [SerializeField]
         private CinemachineVirtualCamera _fpsCamera;
 
@@ -141,7 +142,7 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -173,6 +174,7 @@ namespace StarterAssets
             {
                 SwapCameras();
             }
+
             CameraRotation();
         }
 
