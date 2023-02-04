@@ -20,14 +20,14 @@ public class ToolManager : MonoBehaviour
         _currentGardeningTool.SetOwner(GetComponent<ThirdPersonController>());
     }
 
-    public void OnMouseDown()
+    public void OnMousePressed()
     {
-        _currentGardeningTool.OnMouseDown();
+        _currentGardeningTool.MousePressed();
     }
 
-    public void OnMouseUp()
+    public void OnMouseReleased()
     {
-        _currentGardeningTool.OnMouseUp();
+        _currentGardeningTool.MouseReleased();
     }
 
     public void SwitchTool(Tool tool)

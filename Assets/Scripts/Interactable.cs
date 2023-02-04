@@ -12,8 +12,9 @@ public class Interactable : MonoBehaviour
 
     public float timeToFinishInteraction;
     private float _interactionStarted = float.MinValue;
-    private Coroutine _interactionCoroutine;
     [SerializeField] private Image _interactionImage;
+
+    private bool wasCancelled;
 
     private void Awake()
     {
@@ -24,23 +25,22 @@ public class Interactable : MonoBehaviour
     {
         Debug.Log($"Started Interaction with {name}");
         _interactionStarted = Time.time;
+        wasCancelled = false;
         OnInteractStarted.Invoke();
-        _interactionCoroutine = StartCoroutine(CheckInteractionTime());
+        StartCoroutine(CheckInteractionTime());
     }
 
     private IEnumerator CheckInteractionTime()
     {
-        float timeDifferenceSinceStart = Time.time - _interactionStarted;
-        while (timeDifferenceSinceStart < timeToFinishInteraction)
+        while (Time.time - _interactionStarted < timeToFinishInteraction)
         {
-            Debug.Log(Time.time - _interactionStarted);
             if (_interactionImage)
-                _interactionImage.fillAmount = timeDifferenceSinceStart / timeToFinishInteraction;
+                _interactionImage.fillAmount = (Time.time - _interactionStarted) / timeToFinishInteraction;
             yield return new WaitForEndOfFrame();
-            timeDifferenceSinceStart = Time.time - _interactionStarted;
         }
 
-        FinishInteraction();
+        if (!wasCancelled)
+            FinishInteraction();
     }
 
     private void FinishInteraction()
@@ -56,8 +56,8 @@ public class Interactable : MonoBehaviour
     public void CancelInteracting()
     {
         Debug.Log($"Cancelled interaction with {name}");
-        if (_interactionCoroutine != null)
-            StopCoroutine(_interactionCoroutine);
+        wasCancelled = true;
+        StopCoroutine(CheckInteractionTime());
         if (_interactionImage)
             _interactionImage.fillAmount = 0;
         ResetInteractionTime();

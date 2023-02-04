@@ -6,11 +6,8 @@ public class Level1Tool : GardeningTool
     private Interactable _currentInteractable;
     public float toolRange = 2;
 
-    public override void OnMouseDown()
+    public override void MousePressed()
     {
-        //started pressing fire button
-
-        Debug.Log("Started pressing left mouse button");
         var layerMask = LayerMask.GetMask("Interactable");
         if (Physics.Raycast(owner.CinemachineCameraTarget.transform.position, owner.transform.forward, out var hitInfo, toolRange, layerMask))
         {
@@ -19,7 +16,7 @@ public class Level1Tool : GardeningTool
         }
     }
 
-    public override void OnMouseUp()
+    public override void MouseReleased()
     {
         if (_currentInteractable)
             _currentInteractable.CancelInteracting();

@@ -4,8 +4,8 @@ using UnityEngine;
 public abstract class GardeningTool : ScriptableObject
 {
     protected ThirdPersonController owner;
-    public abstract void OnMouseDown();
-    public abstract void OnMouseUp();
+    public abstract void MousePressed();
+    public abstract void MouseReleased();
 
     public void SetOwner(ThirdPersonController owner)
     {

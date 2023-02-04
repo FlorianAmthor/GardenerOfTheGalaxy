@@ -182,7 +182,7 @@ namespace StarterAssets
             {
                 fireStartedThisFrame = true;
                 _startedFiringTime = Time.time;
-                _toolmanager.OnMouseDown();
+                _toolmanager.OnMousePressed();
             }
 
             if (_input.fire && !fireStartedThisFrame)
@@ -192,7 +192,7 @@ namespace StarterAssets
 
             if (!_input.fire && !_startedFiringTime.Equals(float.MinValue))
             {
-                _toolmanager.OnMouseUp();
+                _toolmanager.OnMouseReleased();
                 //stopped pressing fire button
                 Debug.Log($"Stopped pressing left mouse button. Hold time: {Time.time - _startedFiringTime}");
                 _startedFiringTime = float.MinValue;
