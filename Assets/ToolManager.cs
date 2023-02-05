@@ -19,6 +19,17 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private Image _tool2Image;
     [SerializeField] private Image _tool3Image;
     
+    [Space(10)]
+    [Header("Tool1 Images")]
+    [SerializeField, Tooltip("Tool1 inactive.")] private Sprite _tool1InactiveSprite;
+    [SerializeField,Tooltip("Tool1 active.")] private Sprite _tool1ActiveSprite;
+    [Header("Tool2 Images")]
+    [SerializeField, Tooltip("Tool2 inactive.")] private Sprite _tool2InactiveSprite;
+    [SerializeField,Tooltip("Tool2 active.")] private Sprite _tool2ActiveSprite;
+    [Header("Tool3 Images")]
+    [SerializeField, Tooltip("Tool3 inactive.")] private Sprite _tool3InactiveSprite;
+    [SerializeField, Tooltip("Tool3 active.")] private Sprite _tool3ActiveSprite;
+    
     private GardeningTool _currentGardeningTool;
     private ThirdPersonController _owner;
 
@@ -40,6 +51,10 @@ public class ToolManager : MonoBehaviour
 
     private void UpdateToolUIImages()
     {
+        _tool1Image.sprite = currentTool.Equals(Tool.Level1) ? _tool1ActiveSprite : _tool1InactiveSprite;
+        _tool2Image.sprite = currentTool.Equals(Tool.Level2) ? _tool2ActiveSprite : _tool2InactiveSprite;
+        _tool3Image.sprite = currentTool.Equals(Tool.Level3) ? _tool3ActiveSprite : _tool3InactiveSprite;
+        
         _tool1Image.color = new Color(1, 1, 1, tool1Unlocked ? 1 : 0.33f);
         _tool2Image.color = new Color(1, 1, 1, tool2Unlocked ? 1 : 0.33f);
         _tool3Image.color = new Color(1, 1, 1, tool3Unlocked ? 1 : 0.33f);
@@ -94,6 +109,7 @@ public class ToolManager : MonoBehaviour
             Tool.Level3 => _gardeningTool3,
             _ => _currentGardeningTool
         };
+        UpdateToolUIImages();
         _currentGardeningTool.SetOwner(_owner);
     }
 
