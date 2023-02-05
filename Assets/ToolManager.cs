@@ -20,6 +20,7 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private Image _tool3Image;
     
     private GardeningTool _currentGardeningTool;
+    private ThirdPersonController _owner;
 
     public enum Tool
     {
@@ -33,7 +34,8 @@ public class ToolManager : MonoBehaviour
     {
         SwitchTool(Tool.None);
         UpdateToolUIImages();
-        _currentGardeningTool.SetOwner(GetComponent<ThirdPersonController>());
+        _owner = GetComponent<ThirdPersonController>();
+        _currentGardeningTool.SetOwner(_owner);
     }
 
     private void UpdateToolUIImages()
@@ -92,6 +94,7 @@ public class ToolManager : MonoBehaviour
             Tool.Level3 => _gardeningTool3,
             _ => _currentGardeningTool
         };
+        _currentGardeningTool.SetOwner(_owner);
     }
 
     public void UnlockTool1(bool value)
